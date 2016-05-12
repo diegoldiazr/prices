@@ -18,109 +18,89 @@
  */
 angular.module('pricesApp')
   .controller('MainCtrl', [
-	'$scope', 
-  	function ($scope) {
-  		/*
-    */
-   
-   
-
-   
-   function downloadFile() {
-  		
-  		 var xhr = new XMLHttpRequest();
-		  xhr.responseType = 'text';
-
-		 
-
-		  xhr.open('POST', 'https://content.dropboxapi.com/2/files/download');
-		  xhr.setRequestHeader('Authorization', 'Bearer ' + '7OXgJuyulmMAAAAAAAACOfKo-5z3lmnIkeFZ8QjZqXXiZGxtZmjmoztvVNss24lH');
-		  xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-		    path: '/' +  'articulos.json'
-		  }));
-		  xhr.onreadystatechange = function() {//Call a function when the state changes.
-			    if(xhr.readyState === 4 && xhr.status === 200) {
-			        //alert(xhr.response);			       
-			        cargado(xhr.responseText, $scope);
-			    }			    
-			};
-		  xhr.send();
-	}
-
-	function cargado(response, $scope){
-		$scope.articulos = JSON.parse(response) || [];
-		//alert("cargado");
-		//$scope.isLoading = false;
-	
-	}
-
-	function modificarDropbox(){
-		var file = new Blob([JSON.stringify($scope.articulos)], {type: 'text'});
-		
-
-		var xhr = new XMLHttpRequest();
-
-		xhr.upload.onprogress = function(evt) {
-		    //var percentComplete = parseInt(100.0 * evt.loaded / evt.total);
-		    // Upload in progress. Do something here with the percent complete.
-		    
-		};
-
-		xhr.onload = function() {
-		    if (xhr.readyState === 4 && xhr.status === 200) {
-		        var fileInfo = JSON.parse(xhr.response);
-		        // Upload succeeded. Do something here with the file info.
-		        console.log('se ha subido el archivo');
-		        
-		    }
-		    else {
-		        var errorMessage = xhr.response || 'Unable to upload file';
-		        // Upload failed. Do something here with the error.
-		        console.log('error al subir el archivo');
-		    }
-		};
-
-		xhr.open('POST', 'https://content.dropboxapi.com/2/files/upload');
-		xhr.setRequestHeader('Authorization', 'Bearer ' + '7OXgJuyulmMAAAAAAAACOfKo-5z3lmnIkeFZ8QjZqXXiZGxtZmjmoztvVNss24lH');
-		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-		xhr.setRequestHeader('Dropbox-API-Arg', JSON.stringify({
-		    path: '/' +  'articulos.json',
-		    mode: 'overwrite',
-		    autorename: true,
-		    mute: false
-		}));
-
-		xhr.send(file);
-	}
-   	   	
-    $scope.borrar = function(index){
-    	$scope.articulos.splice(index, 1);
-    	modificarDropbox();
-    };
-
-
-    $scope.modificar = function(row){
-    	console.log($scope.articulos);
-    	console.log(row);
-    	modificarDropbox();
-    	/**
-		 * Two variables should already be set.
-		 * dropboxToken = OAuth token received then signing in with OAuth.
-		 * file = file object selected in the file widget.
-		 */
-		
-		
-		
-    };
-
-    $scope.obtenerDatos = function(){
+	'$scope',	
+	'$http',
+  	function ($scope, $http) {
       
-	  
-	  //$scope.isLoading = true;
+   $scope.estaCargando = false;   
+   $scope.estaGuardando = false;
 
+	function downloadFile(){		
+		$scope.estaCargando = true;
+		$http(
+			{
+			method : 'POST',
+			url: 'https://content.dropboxapi.com/2/files/download',
+			headers:{
+				'Authorization': 'Bearer 7OXgJuyulmMAAAAAAAACOfKo-5z3lmnIkeFZ8QjZqXXiZGxtZmjmoztvVNss24lH',
+				'Dropbox-API-Arg': '{\"path\":\"/articulos.json\"}'
+			}
+		})
+		.then(function successCallback(data) {		       			       
+		    $scope.articulos = data.data || [];
+		    $scope.estaCargando = false;
+   			//$scope.estaCargando = false;   			
+		}, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		    alert("La carga del archivo ha fallado.");
+		});
+	}
+	
+
+	function modificarDropbox(){	
+		$scope.estaGuardando = true;
+		var file = new Blob([JSON.stringify($scope.articulos)], {type: 'text'});		
+		//$http.defaults.headers.common['Content-Type'] = 'application/octet-stream';
+		$http(
+			{
+			method : 'POST',
+			url: 'https://content.dropboxapi.com/2/files/upload',
+			data:file,
+			headers:{
+				'Authorization': 'Bearer 7OXgJuyulmMAAAAAAAACOfKo-5z3lmnIkeFZ8QjZqXXiZGxtZmjmoztvVNss24lH',
+				'Content-Type': 'application/octet-stream',
+				'Dropbox-API-Arg': '{\"path\":\"/articulos.json\", \"mode\":\"overwrite\",\"autorename\":true,\"mute\":false}'
+			}
+			
+		})
+		.then(function successCallback(data) {		       			       
+		    
+		    console.log('se ha subido el archivo');
+		    console.log(data);
+		    $scope.estaGuardando = false;
+   			//$scope.estaCargando = false;   			
+		}, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		    alert("La carga del archivo ha fallado.");
+		});
+	}
+
+	   	   	
+    $scope.borrar = function(row){    	
+    	//el borrado hay que hacerlo manual por el nombre del producto.
+    	//recorremos el array y vamos añadiendo a ese array todos los elementos menos el que tenemos que borrar
+    	var arrayResultado = [];
+    	$scope.articulos.forEach(function(element, index){
+    		if(element.articulo != row.articulo){
+    			arrayResultado.push(element);
+    		}
+    	});
+
+    	//finalmente volcamos los datos
+    	$scope.articulos = arrayResultado;
+    	//guardamos el fichero
+    	modificarDropbox();
+    };
+
+
+    $scope.modificar = function(row){    	
+    	modificarDropbox();        	
+    };
+
+    $scope.obtenerDatos = function(){      	  	  	  	 
 	  downloadFile();
-	  
-	  
 	};
 
 	$scope.aniadir = function(){
@@ -128,21 +108,20 @@ angular.module('pricesApp')
 			id : 0,
 			articulo : '',
 			unidades : 1,
-			pt1 : 0.00,
-			pu1 : 0.00,
-			pt2 : 0.00,
-			pu2 : 0.00,
-			pt3 : 0.00,
-			pu3 : 0.00,
-			pt4 : 0.00,
-			pu4 : 0.00
+			pt1 : '',
+			pu1 : '',
+			pt2 : '',
+			pu2 : '',
+			pt3 : '',
+			pu3 : '',
+			pt4 : '',
+			pu4 : ''
 		};
 		$scope.articulos.push(articuloVacio);
 	};
+		
 
-	
-
-   	downloadFile();
-	
+	//realizamos la carga inicial
+	downloadFile();
 
   }]);

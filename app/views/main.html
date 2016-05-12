@@ -1,11 +1,20 @@
 <div class="container" ng-controller="MainCtrl">
   
 
+<div class="row">
+  <div class="col-xs-2">
+    <h4>Artículos</h4>
+  </div>
+  <div class="col-xs-10">
+    <div class="loading-indicator" ng-show="estaGuardando"> guardando... </div>
+  </div>
+</div>
 
 
-<h4>Artículos</h4>
 
-  
+
+
+
 
 <table st-table="articulosTable"   st-safe-src="articulos" class="table table-condensed table-hover" style="font-size:small">
   <thead>
@@ -62,7 +71,7 @@
       <th colspan="8"></th>
     </tr>              
   </thead>
-  <tbody ng-show="!isLoading">
+  <tbody ng-show="!estaCargando">
     <tr ng-repeat="row in articulosTable">                                     
       <td class="td text-left" style="width:350px;padding:0px;"><input class="input-sm form-control" type="text" ng-model="row.articulo" value="{{row.articulo}}"></td>
       <td class="text-right" style="padding:0px;width:50px"><input class="input-sm form-control text-right" type="text" ng-model="row.unidades" value="{{row.unidades}}"></td>
@@ -83,18 +92,18 @@
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pu7" value="{{row.pu7}}"></td>                                 
       -->
       <td class="text-center" colspan="3"  style="padding:0px;">        
-        <button class="btn btn-danger btn-sm pull-center" ng-click="borrar($index)" title="Borrar">
+        <button class="btn btn-danger btn-sm pull-center" ng-click="borrar(row)" title="Borrar">
           <i class="fa fa-trash-o"></i>
         </button>
       </td>      
     </tr>
   </tbody>
-  <tbody ng-show="isLoading">
+  <tbody ng-show="estaCargando">
     <tr>
       <td colspan="20" class="text-center"><div class="loading-indicator"></div></td>
     </tr>
   </tbody>
-  <tbody ng-show="articulos.length == 0 && !isLoading">
+  <tbody ng-show="articulos.length == 0 && !estaCargando">
     <tr>
       <td colspan="20" class="text-center"><p>No se han encontrado resultados</p></td>
     </tr>
