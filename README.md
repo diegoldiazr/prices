@@ -1,5 +1,9 @@
 # prices
 
+Esta aplicacion permite gestionar los diferentes precios en diferentes establecimientos (4).
+
+El almacenaje de la información es vía fichero json alojado en dropbox.
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
