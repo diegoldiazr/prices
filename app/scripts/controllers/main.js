@@ -119,9 +119,115 @@ angular.module('pricesApp')
 		};
 		$scope.articulos.push(articuloVacio);
 	};
+
+	$scope.ponerFondoCelda = function(_clases, _row, _tipo){
+		var celdaRoja = ' celdaRoja';
+		var celdaVerde = ' celdaVerde';
+		var celdaAmarilla = ' celdaAmarilla';
+		var celdaNormal = ' celdaNormal';
+
+		if (_tipo === 1){
+			if (_row.pu1 === ''){
+				_row.pu1 = 0;
+			}
+			if (parseFloat(_row.pu1) <= (parseFloat(_row.pu2)===0?999999:parseFloat(_row.pu2)) &&
+				parseFloat(_row.pu1) <= (parseFloat(_row.pu3)===0?999999:parseFloat(_row.pu3)) &&
+				parseFloat(_row.pu1) <= (parseFloat(_row.pu4)===0?999999:parseFloat(_row.pu4)) &&
+				parseFloat(_row.pu1) !==parseFloat("0")){
+				_clases += celdaVerde;
+			}else{
+				if (parseFloat(_row.pu1) >= parseFloat(_row.pu2) &&
+					parseFloat(_row.pu1) >= parseFloat(_row.pu3) &&
+					parseFloat(_row.pu1) >= parseFloat(_row.pu4) &&
+					parseFloat(_row.pu1) !==parseFloat("0")){
+					_clases += celdaRoja;
+				}else{
+					if (parseFloat(_row.pu1) !==parseFloat("0")){
+						_clases += celdaAmarilla;
+					}else{
+						_clases += celdaNormal;
+					}
+				}	
+			}
+		}
+		if (_tipo === 2){
+			if (_row.pu2 === ''){
+				_row.pu2 = 0;
+			}
+			if (parseFloat(_row.pu2) <= (parseFloat(_row.pu1)===0?999999:parseFloat(_row.pu1)) &&
+				parseFloat(_row.pu2) <= (parseFloat(_row.pu3)===0?999999:parseFloat(_row.pu3)) &&
+				parseFloat(_row.pu2) <= (parseFloat(_row.pu4)===0?999999:parseFloat(_row.pu4)) &&
+				parseFloat(_row.pu2) !==parseFloat("0")){
+				_clases += celdaVerde;
+			}else{
+				if (parseFloat(_row.pu2) >= parseFloat(_row.pu1) &&
+					parseFloat(_row.pu2) >= parseFloat(_row.pu3) &&
+					parseFloat(_row.pu2) >= parseFloat(_row.pu4) &&
+					parseFloat(_row.pu2) !==parseFloat("0")){
+					_clases += celdaRoja;
+				}else{
+					if (parseFloat(_row.pu2) !==parseFloat("0")){
+						_clases += celdaAmarilla;
+					}else{
+						_clases += celdaNormal;
+					}
+				}	
+			}
+		}
+		if (_tipo === 3){
+			if (_row.pu3 === ''){
+				_row.pu3 = 0;
+			}
+			if (parseFloat(_row.pu3) <= (parseFloat(_row.pu2)===0?999999:parseFloat(_row.pu2)) &&
+				parseFloat(_row.pu3) <= (parseFloat(_row.pu1)===0?999999:parseFloat(_row.pu1)) &&
+				parseFloat(_row.pu3) <= (parseFloat(_row.pu4)===0?999999:parseFloat(_row.pu4)) &&
+				parseFloat(_row.pu3) !==parseFloat("0")){
+				_clases += celdaVerde;
+			}else{
+				if (parseFloat(_row.pu3) >= parseFloat(_row.pu2) &&
+					parseFloat(_row.pu3) >= parseFloat(_row.pu1) &&
+					parseFloat(_row.pu3) >= parseFloat(_row.pu4) &&
+					parseFloat(_row.pu3) !==parseFloat("0")){
+					_clases += celdaRoja;
+				}else{
+					if (parseFloat(_row.pu3) !==parseFloat("0")){
+						_clases += celdaAmarilla;
+					}else{
+						_clases += celdaNormal;
+					}
+				}	
+			}
+		}
+		if (_tipo === 4){
+			if (_row.pu4 === ''){
+				_row.pu4 = 0;
+			}
+			if (parseFloat(_row.pu4) <= (parseFloat(_row.pu2)===0?999999:parseFloat(_row.pu2)) &&
+				parseFloat(_row.pu4) <= (parseFloat(_row.pu3)===0?999999:parseFloat(_row.pu3)) &&
+				parseFloat(_row.pu4) <= (parseFloat(_row.pu1)===0?999999:parseFloat(_row.pu1)) &&
+				parseFloat(_row.pu4) !==parseFloat("0")){
+				_clases += celdaVerde;
+			}else{
+				if (parseFloat(_row.pu4) >= parseFloat(_row.pu2) &&
+					parseFloat(_row.pu4) >= parseFloat(_row.pu3) &&
+					parseFloat(_row.pu4) >= parseFloat(_row.pu1) &&
+					parseFloat(_row.pu4) !==parseFloat("0")){
+					_clases += celdaRoja;
+				}else{
+					if (parseFloat(_row.pu4) !==parseFloat("0")){
+						_clases += celdaAmarilla;
+					}else{
+						_clases += celdaNormal;
+					}
+				}	
+			}
+		}
+		return _clases;
+	};
 		
 
 	//realizamos la carga inicial
 	downloadFile();
 
   }]);
+	
