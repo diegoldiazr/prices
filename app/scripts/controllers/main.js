@@ -24,6 +24,7 @@ angular.module('pricesApp')
       
    $scope.estaCargando = false;   
    $scope.estaGuardando = false;
+   $scope.itemsByPage = 15;
 
 	function downloadFile(){		
 		$scope.estaCargando = true;
@@ -106,7 +107,7 @@ angular.module('pricesApp')
 	$scope.aniadir = function(){
 		var articuloVacio = {
 			id : 0,
-			articulo : '',
+			articulo : $scope.searchBox,
 			unidades : 1,
 			pt1 : '',
 			pu1 : '',
@@ -222,8 +223,21 @@ angular.module('pricesApp')
 				}	
 			}
 		}
+
+	
 		return _clases;
 	};
+
+	$scope.setSelected = function(_row){
+		$scope.idSelectedRow = _row.articulo;
+		$scope.rowSelected = _row;
+
+	};
+
+	$scope.ponerClaseElegida = function(_row){
+		return _row.articulo === $scope.idSelectedRow? 'selectedCell':'';
+	}
+
 		
 
 	//realizamos la carga inicial

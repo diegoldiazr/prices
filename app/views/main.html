@@ -14,30 +14,35 @@
 
 
 
-
-
-<table st-table="articulosTable"   st-safe-src="articulos" class="table table-condensed table-hover" style="font-size:small">
+<div class="row">
+<div class="col-xs-12">
+<table st-table="articulosTable"   st-safe-src="articulos" class="table table-condensed table-hover" >
   <thead>
     <tr>     
       
-      <th colspan="4"><input st-search="articulo" placeholder="buscar" class="input-sm form-control" type="search"/></th>      
-       <th class="text-center" colspan="3">
-        <button type="button" class="btn btn-xs btn-warning" title="Refrescar" ng-click="obtenerDatos()"> 
+      <th colspan="2"><input st-search="articulo" placeholder="buscar" class="input-sm form-control" type="search" ng-model="searchBox"/></th>      
+       <th class="text-left" colspan="2">
+        <button type="button" class="btn btn-sm btn-warning" title="Refrescar" ng-click="obtenerDatos()"> 
           <i class="fa fa-refresh"></i>
         </button>
-        <button type="button" class="btn btn-xs btn-default" title="Nuevo" ng-click="aniadir()"> 
+        <button type="button" class="btn btn-sm btn-default" title="Nuevo" ng-click="aniadir()"> 
           <i class="fa fa-plus"></i>
         </button>
-        <button class="btn btn-success btn-xs " ng-click="modificar(row)" title="Guardar" style="margin-right:15px">
+        <button class="btn btn-success btn-sm " ng-click="modificar(row)" title="Guardar">
           <i class="fa fa-floppy-o"></i>
         </button>  
+      </th>
+      <th class="text-right" colspan="1">
+        <button class="btn btn-danger btn-sm" ng-click="borrar(rowSelected)" title="Borrar" style="margin-right:15px">
+          <i class="fa fa-trash-o"></i>
+        </button>
       </th>      
       
     </tr>   
     <tr>                             
       
       <th class="text-center" st-sort="articulo" >Artículo comprado</th>     
-      <th class="text-center">Unid.</th>                 
+      <!--<th class="text-center">Unid.</th>         -->
       <th class="text-center" colspan="1">Alcampo</th>                 
       <th class="text-center" colspan="1">Ahorram.</th>                 
       <th class="text-center" colspan="1">Cen.Lidl</th>                 
@@ -50,15 +55,15 @@
      
     </tr>
     <tr>
-      <th colspan="2"></th>
+      <th style="width: 80%" colspan="1"></th>
       <!--<th class="text-center">P.T.</th>-->
-      <th class="text-center">P.U.</th>      
+      <th style="width: 5%" class="text-center">P.U.</th>      
       <!--<th class="text-center">P.T.</th>-->
-      <th class="text-center">P.U.</th>      
+      <th style="width: 5%" class="text-center">P.U.</th>      
       <!--<th class="text-center">P.T.</th>-->
-      <th class="text-center">P.U.</th>      
+      <th style="width: 5%" class="text-center">P.U.</th>      
       <!--<th class="text-center">P.T.</th>-->
-      <th class="text-center">P.U.</th>
+      <th style="width: 2%" class="text-center">P.U.</th>
       <!--      
       <th class="text-center">P.T.</th>
       <th class="text-center">P.U.</th>      
@@ -68,21 +73,21 @@
       <th class="text-center">P.U.</th>      
       -->        
 
-      <th colspan="8"></th>
+      
     </tr>              
   </thead>
   <tbody ng-show="!estaCargando">
-    <tr ng-repeat="row in articulosTable">                                     
-      <td class="td text-left" style="width:350px;padding:0px;"><input class="input-sm form-control" type="text" ng-model="row.articulo" value="{{row.articulo}}"></td>
-      <td class="text-right" style="padding:0px;width:50px"><input class="input-sm form-control text-right" type="text" ng-model="row.unidades" value="{{row.unidades}}"></td>
+    <tr ng-repeat="row in articulosTable" ng-click="setSelected(row)" ng-class="ponerClaseElegida(row);">                    
+      <td class="td text-left" style="padding:0px;"><input class="ancho-variable-largo sin-borde input-sm form-control text-left" type="text" ng-model="row.articulo" value="{{row.articulo}}"></td>
+      <!--<td class="text-right" style="padding:0px;width:50px"><input class="input-sm form-control text-right" type="text" ng-model="row.unidades" value="{{row.unidades}}"></td>-->
       <!--<td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt1" value="{{row.pt1}}"></td>  -->
-      <td class="td text-right" style="padding:0px;"><input class="input-sm form-control text-right" type="text" ng-model="row.pu1" value="{{row.pu1}}"></td>                           
+      <td class="td text-right" style="padding:0px;"><input ng-class="ponerFondoCelda('ancho-variable-standard sin-borde input-sm form-control text-right', row, 1)" type="text" ng-model="row.pu1" value="{{row.pu1}}"></td>                           
       <!--<td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt2" value="{{row.pt2}}"></td> -->
-      <td class="td text-right" style="padding:0px;"><input class="input-sm form-control text-right" type="text" ng-model="row.pu2" value="{{row.pu2}}"></td>                           
+      <td class="td text-right" style="padding:0px;"><input ng-class="ponerFondoCelda('ancho-variable-standard sin-borde input-sm form-control text-right', row, 2)" type="text" ng-model="row.pu2" value="{{row.pu2}}"></td>                           
       <!--<td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt3" value="{{row.pt3}}"></td> -->
-      <td class="td text-right" style="padding:0px;"><input class="input-sm form-control text-right" type="text" ng-model="row.pu3" value="{{row.pu3}}"></td>                           
+      <td class="td text-right" style="padding:0px;"><input ng-class="ponerFondoCelda('ancho-variable-standard sin-borde input-sm form-control text-right', row, 3)" type="text" ng-model="row.pu3" value="{{row.pu3}}"></td>                           
       <!--<td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt4" value="{{row.pt4}}"></td> -->
-      <td class="td text-right" style="padding:0px;"><input class="input-sm form-control text-right" type="text" ng-model="row.pu4" value="{{row.pu4}}"></td>     
+      <td class="td text-right" style="padding:0px;"><input ng-class="ponerFondoCelda('ancho-variable-standard sin-borde input-sm form-control text-right', row, 4)" type="text" ng-model="row.pu4" value="{{row.pu4}}"></td>     
       <!--                      
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt5" value="{{row.pt5}}"></td> 
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pu5" value="{{row.pu5}}"></td>                           
@@ -90,12 +95,14 @@
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pu6" value="{{row.pu6}}"></td>                           
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pt7" value="{{row.pt7}}"></td> 
       <td class="text-right"><input class="input-sm form-control text-right" type="text" ng-model="row.pu7" value="{{row.pu7}}"></td>                                 
-      -->
+      
       <td class="text-center" colspan="3"  style="padding:0px;">        
-        <button class="btn btn-danger btn-sm pull-center" ng-click="borrar(row)" title="Borrar">
+        <button class="btn btn-danger btn-sm pull-center" ng-click="borrar(rowSelected)" title="Borrar">
           <i class="fa fa-trash-o"></i>
         </button>
       </td>      
+      -->
+      <td></td>
     </tr>
   </tbody>
   <tbody ng-show="estaCargando">
@@ -108,13 +115,25 @@
       <td colspan="20" class="text-center"><p>No se han encontrado resultados</p></td>
     </tr>
   </tbody>
-  <tfoot>                        
+  <tfoot>  
+   <tr>
+     <td colspan="20">                        
+        <div class="btn-group pull-right ng-scope">
+                  <!-- could be within a ng-repeat-->                          
+          <button type="button" ng-class="{'active':itemsByPage==5}" ng-click="itemsByPage=5"   class="btn btn-default btn-sm">5</button>
+          <button type="button" ng-class="{'active':itemsByPage==10}" ng-click="itemsByPage=10" class="btn btn-default btn-sm">10</button>    
+          <button type="button" ng-class="{'active':itemsByPage==15}" ng-click="itemsByPage=15" class="btn btn-default btn-sm">15</button>    
+          <button type="button" ng-class="{'active':itemsByPage==20}" ng-click="itemsByPage=20" class="btn btn-default btn-sm">20</button>          
+        </div>
+      </td>   
+    </tr>                      
     <tr>                 
       <td colspan="20" class="text-center">
         <div st-template="views/pagination.html" st-pagination="" st-items-by-page="itemsByPage"></div>
       </td>
-    </tr>
-  </tfoot>
+    </tr>   
+    </tfoot>
 </table> 
-
+</div>
+</div>
 </div>
