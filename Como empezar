@@ -1,2 +1,8 @@
 Antes de nada decir que he necesitado actualizar node.js
+
 Revisar la web: https://academia-binaria.com/hola-angular-cli/
+
+Si tienes problemas a la hora de ejecutar los comandos y tienes error en mkdir:
+ejecutar en mac sudo -s
+ejecutar en mac con sudo -H [resto de comandos]
+[opcional] tambien puedes revisar https://www.fahidjavid.com/fix-error-eacces-permission-denied-mkdir/
