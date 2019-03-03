@@ -38,7 +38,7 @@ class GamesController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query('insert into games set ?', [req.body]);
-            res.json({ message: 'juego creado' });
+            res.json({ message: 'Juego creado' });
         });
     }
     delete(req, res) {
@@ -49,8 +49,13 @@ class GamesController {
             res.json({ message: 'Eliminado el juego: ' + id });
         });
     }
+    //el async y el await se ponen, junto con Promise, porque el acceso a bd va a ser lento.
     update(req, res) {
-        res.json({ text: 'actualizando un juego: ' + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield database_1.default.query('update games set ? where id = ? ', [req.body, id]);
+            res.json({ message: 'Actualizado el juego: ' + id });
+        });
     }
 }
 const gamesController = new GamesController();

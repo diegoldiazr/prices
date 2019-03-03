@@ -9,7 +9,7 @@ class GamesController {
         
     }
 
-    public async getAll (req : Request, res : Response) {
+    public async getAll (req : Request, res : Response) : Promise<void>{
         const games = await pool.query('select * from games');
         res.json(games);
         
@@ -28,18 +28,21 @@ class GamesController {
 
     public async create (req : Request, res : Response) :Promise<void>{
         await pool.query('insert into games set ?', [req.body]);
-        res.json ({message:'juego creado'});
+        res.json ({message:'Juego creado'});
     }
 
-    public async delete (req : Request, res : Response) {
+    public async delete (req : Request, res : Response) : Promise<void>{
         const id = req.params.id;
         console.log(id);        
         await pool.query('delete from games where id = ? ', [id]);
         res.json ({message:'Eliminado el juego: ' + id});
     }
 
-    public update (req : Request, res : Response) {
-        res.json ({text:'actualizando un juego: ' + req.params.id});
+    //el async y el await se ponen, junto con Promise, porque el acceso a bd va a ser lento.
+    public async update (req : Request, res : Response) : Promise<void>{
+        const id = req.params.id;
+        await pool.query('update games set ? where id = ? ', [req.body, id])
+        res.json ({message:'Actualizado el juego: ' + id});
     }
 }
 
