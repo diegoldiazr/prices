@@ -15,11 +15,15 @@ class GamesController {
         
     }
 
-    public async getById (req : Request, res : Response) {
+    public async getById (req : Request, res : Response) : Promise<void>{
         const id = req.params.id;
         const game = await pool.query('select * from games where id = ? ', [id]);
         console.log(game);
-        res.json(game);        
+        if (game.length > 0){
+            res.json(game);        
+        }else{
+            res.status(204).json({message:'El juego no existe'});
+        }        
     }
 
     public async create (req : Request, res : Response) :Promise<void>{

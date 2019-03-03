@@ -27,7 +27,12 @@ class GamesController {
             const id = req.params.id;
             const game = yield database_1.default.query('select * from games where id = ? ', [id]);
             console.log(game);
-            res.json(game);
+            if (game.length > 0) {
+                res.json(game);
+            }
+            else {
+                res.status(204).json({ message: 'El juego no existe' });
+            }
         });
     }
     create(req, res) {
