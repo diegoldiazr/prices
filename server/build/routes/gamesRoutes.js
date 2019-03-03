@@ -11,7 +11,8 @@ class GamesRoutes {
         this.config();
     }
     config() {
-        this.router.get('/', gamesController_1.default.index);
+        this.router.get('/', gamesController_1.default.getAll);
+        this.router.get('/:id', gamesController_1.default.getById);
         this.router.post('/', gamesController_1.default.create);
         this.router.put('/:id', gamesController_1.default.delete);
         this.router.delete('/:id', gamesController_1.default.delete);

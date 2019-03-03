@@ -8,12 +8,16 @@ const database_1 = __importDefault(require("../database"));
 class GamesController {
     constructor() {
     }
-    index(req, res) {
-        database_1.default.query('DESCRIBE games');
-        res.send(database_1.default.query('DESCRIBE games;'));
-        //res.json({id:1, title:'primer juego'});
+    getAll(req, res) {
+        //var q = pool.query('select * from games');
+        res.send('todos los juegos');
+    }
+    getById(req, res) {
+        //var q = pool.query('select * from games');
+        res.send('Obtener el juego ' + req.params.id);
     }
     create(req, res) {
+        database_1.default.query('insert into games (title, description) values ("primer juego", "diego")');
         res.json({ text: 'creando un juego' });
     }
     delete(req, res) {

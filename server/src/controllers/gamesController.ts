@@ -9,14 +9,20 @@ class GamesController {
         
     }
 
-    public index (req : Request, res : Response) {
-        pool.query('DESCRIBE games');
-        res.send(pool.query('DESCRIBE games;'));
-        //res.json({id:1, title:'primer juego'});
+    public getAll (req : Request, res : Response) {
+        //var q = pool.query('select * from games');
+        res.send('todos los juegos');
+        
+    }
+
+    public getById (req : Request, res : Response) {
+        //var q = pool.query('select * from games');
+        res.send('Obtener el juego ' + req.params.id);
         
     }
 
     public create (req : Request, res : Response) {
+        pool.query('insert into games (title, description) values ("primer juego", "diego")');
         res.json ({text:'creando un juego'});
     }
 
