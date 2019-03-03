@@ -24,8 +24,14 @@ server   --> esta carpeta contiene la apiRest en nodejs
 
 CONTRASEÑAS
 -----------
-mySQL usuario root pass prueba12345
+mySQL root@localhost: 6WZ!VhFzq1_J
 
 COMANDOS DE INICIO:
  en /server/ ejecutar: npm init --yes
- en /server/ ejecutar: npm i express morgan promise-mysql cors
+ en /server/ ejecutar: npm i express morgan promise-mysql 
+ 
+ en server arrancar auto compilacion y autopublicacion:
+ npm run build
+ npm run dev
+ en mac abrir xampp
+ arrancar el mysql mysql -u root -h127.0.0.1
