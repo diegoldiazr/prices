@@ -13,6 +13,7 @@ ESTA APP ES UNA APP COMPLETA. Quiere decir que tiene bd-apiRest-front
 La base de datos es mysql
 La capa Rest API esta creada en nodejs
 La capa front esta en Angular7
+Usamos typescript para pintar el codigo javascript
 (siguiendo como ejemplo este video: https://www.youtube.com/watch?v=lxYB79ANJM8&t=3116s)
 
 CONFIGURACION
@@ -24,3 +25,7 @@ server   --> esta carpeta contiene la apiRest en nodejs
 CONTRASEÑAS
 -----------
 mySQL usuario root pass prueba12345
+
+COMANDOS DE INICIO:
+ en /server/ ejecutar: npm init --yes
+ en /server/ ejecutar: npm i express morgan promise-mysql cors
