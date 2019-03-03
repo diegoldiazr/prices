@@ -9,25 +9,29 @@ class GamesController {
         
     }
 
-    public getAll (req : Request, res : Response) {
-        //var q = pool.query('select * from games');
-        res.send('todos los juegos');
+    public async getAll (req : Request, res : Response) {
+        const games = await pool.query('select * from games');
+        res.json(games);
         
     }
 
-    public getById (req : Request, res : Response) {
-        //var q = pool.query('select * from games');
-        res.send('Obtener el juego ' + req.params.id);
-        
+    public async getById (req : Request, res : Response) {
+        const id = req.params.id;
+        const game = await pool.query('select * from games where id = ? ', [id]);
+        console.log(game);
+        res.json(game);        
     }
 
-    public create (req : Request, res : Response) {
-        pool.query('insert into games (title, description) values ("primer juego", "diego")');
-        res.json ({text:'creando un juego'});
+    public async create (req : Request, res : Response) :Promise<void>{
+        await pool.query('insert into games set ?', [req.body]);
+        res.json ({message:'juego creado'});
     }
 
-    public delete (req : Request, res : Response) {
-        res.json ({text:'eliminando un juego: ' + req.params.id});
+    public async delete (req : Request, res : Response) {
+        const id = req.params.id;
+        console.log(id);        
+        await pool.query('delete from games where id = ? ', [id]);
+        res.json ({message:'Eliminado el juego: ' + id});
     }
 
     public update (req : Request, res : Response) {
