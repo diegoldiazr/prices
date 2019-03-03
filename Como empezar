@@ -6,3 +6,21 @@ Si tienes problemas a la hora de ejecutar los comandos y tienes error en mkdir:
 ejecutar en mac sudo -s
 ejecutar en mac con sudo -H [resto de comandos]
 [opcional] tambien puedes revisar https://www.fahidjavid.com/fix-error-eacces-permission-denied-mkdir/
+
+ARQUITECTURA
+-------------
+ESTA APP ES UNA APP COMPLETA. Quiere decir que tiene bd-apiRest-front
+La base de datos es mysql
+La capa Rest API esta creada en nodejs
+La capa front esta en Angular7
+(siguiendo como ejemplo este video: https://www.youtube.com/watch?v=lxYB79ANJM8&t=3116s)
+
+CONFIGURACION
+--------------
+database --> esta carpeta contiene todos los datos asociados a la base de datos
+pricesV7 --> esta carpeta contiene la app Angular7
+server   --> esta carpeta contiene la apiRest en nodejs
+
+CONTRASEÑAS
+-----------
+mySQL usuario root pass prueba12345
