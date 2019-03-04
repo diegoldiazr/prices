@@ -1,10 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
+    // mac
+    //database: {
+    //    host: 'localhost',
+    //    user: 'root@localhost',
+    //    database: 'ng_games_db',
+    //    password: '6WZ!VhFzq1_J'        
+    //}
+    //windows
     database: {
         host: 'localhost',
-        user: 'root',
+        user: 'diego',
         database: 'ng_games_db',
-        port: '3306'
+        password: '6WZ!VhFzq1_J'
     }
 };

@@ -34,4 +34,18 @@ COMANDOS DE INICIO:
  npm run build
  npm run dev
  en mac abrir xampp
- arrancar el mysql mysql -u root -h127.0.0.1
+ arrancar el mysql mysql -u root -h127.0.0.1.
+
+ COMO CONFIGURAR EL EQUIPO DESDE LOS FUENTES:
+ 1) Instalar nodejs
+ 2) Instalar mysql
+ 3) Instalar vsCode y sus extensiones
+ 3.1) instalar angular essentials
+ 3.1.1) instalar angular 7
+ 3.2) instalar material icon theme
+ 3.3) instalar github plugin
+ 4) en un terminal
+ 4.1) npm install -g typescript 
+ 4.2) npm install -g nodemon
+ 4.3) npm install -g @angular/cli
+
